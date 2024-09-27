@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	"github.com/MovieMaker93/note-cli/cmd/ui/textinput"
@@ -123,7 +124,8 @@ var newCmd = &cobra.Command{
 			formattetDate,
 		)
 
-		file, err := os.OpenFile(note.Title+".md", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+		title := strings.TrimSpace(note.Title)
+		file, err := os.OpenFile(title+".md", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 		defer file.Close()
 		if err != nil {
 			// Handle the error
@@ -135,7 +137,7 @@ var newCmd = &cobra.Command{
 		file.WriteString(contentOfFile)
 		fmt.Println("File created successfly!")
 
-		filePath := dir + "/" + note.Title + ".md"
+		filePath := dir + "/" + title + ".md"
 		// path := strings.ReplaceAll(filePath, " ", "\\ ")
 		nvim := exec.Command("nvim", "+normal ggzzi", filePath)
 
@@ -160,7 +162,7 @@ func init() {
 	newCmd.Flags().StringP("content", "c", "", "Content of the note")
 }
 
-// ExitCLI checks if the Project has been exited, and closes
+// ExitCLI checks if the Note has been created, and closes
 // out of the CLI if it has
 func (p *Note) ExitCLI(tprogram *tea.Program) {
 	if p.Exit {
