@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/MovieMaker93/note-cli/cmd/zettelkasten"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -43,11 +44,16 @@ type model struct {
 	err       error
 	output    *Output
 	header    string
+	exit      *bool
 }
 
 // InitialTextInputModel initializes a textinput step
 // with the given data
-func InitialTextInputModel(output *Output, header string) model {
+func InitialTextInputModel(
+	output *Output,
+	header string,
+	zettelkasten *zettelkasten.Zettelkasten,
+) model {
 	ti := textinput.New()
 	ti.Focus()
 	ti.CharLimit = 156
@@ -58,6 +64,7 @@ func InitialTextInputModel(output *Output, header string) model {
 		err:       nil,
 		output:    output,
 		header:    titleStyle.Render(header),
+		exit:      &zettelkasten.Exit,
 	}
 }
 
@@ -68,12 +75,14 @@ func CreateErrorInputModel(err error) model {
 	ti.Focus()
 	ti.CharLimit = 156
 	ti.Width = 20
+	exit := true
 
 	return model{
 		textInput: ti,
 		err:       errors.New(errorStyle.Render(err.Error())),
 		output:    nil,
 		header:    "",
+		exit:      &exit,
 	}
 }
 
@@ -97,6 +106,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, tea.Quit
 			}
 		case tea.KeyCtrlC, tea.KeyEsc:
+			*m.exit = true
 			return m, tea.Quit
 		}
 

@@ -7,28 +7,16 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"text/template"
 	"time"
 
-	"github.com/MovieMaker93/note-cli/cmd/template/note"
 	"github.com/MovieMaker93/note-cli/cmd/utils"
+	zet "github.com/MovieMaker93/note-cli/cmd/zettelkasten"
 	"github.com/spf13/cobra"
 )
 
-type TodayNote struct {
-	Exit        bool
-	CurrentDate string
-	DayBefore   string
-	DayAfter    string
-}
-
-type TodayTemplater interface {
-	Note() []byte
-}
-
-type Today struct {
-	templater TodayTemplater
-}
+const (
+	TODAY_PATH string = "DAILY_PATH"
+)
 
 // todayCmd represents the today command
 var todayCmd = &cobra.Command{
@@ -37,7 +25,8 @@ var todayCmd = &cobra.Command{
 	Long:  `Open today note in nvim`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		dir, err := utils.GoToVaultDirectory("Journal")
+		todayPath := os.Getenv(TODAY_PATH)
+		dir, err := utils.GoToVaultDirectory(todayPath)
 		if err != nil {
 			fmt.Println("Vault Path is not properly set")
 			cobra.CheckErr("Vault Path is not properly set")
@@ -47,31 +36,20 @@ var todayCmd = &cobra.Command{
 		currentDate := time.Now()
 		tomorrowDate := currentDate.AddDate(0, 0, 1).Format("02-01-2006")
 		yesterdayDate := currentDate.AddDate(0, 0, -1).Format("02-01-2006")
-
 		formattetDate := currentDate.Format("02-01-2006")
-		todayInboxTemplate := Today{
-			templater: note.TodayNoteTemplate{},
-		}
 
-		todayNote := TodayNote{
+		todayNote := zet.TodayNote{
 			CurrentDate: formattetDate,
 			DayBefore:   yesterdayDate,
 			DayAfter:    tomorrowDate,
 		}
 
-		filename := todayNote.CurrentDate + ".md"
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
-			file, err := os.Create(filename)
-			defer file.Close()
-			todayFileTemplate := template.Must(template.New(todayNote.CurrentDate + ".md").Parse(string(todayInboxTemplate.templater.Note())))
-			err = todayFileTemplate.Execute(file, todayNote)
-			if err != nil {
-				// Handle the error
-				fmt.Println("Error opening file:", err)
-				cobra.CheckErr("Error opening file")
-				return
-			}
+		zettelkasten := &zet.Zettelkasten{
+			Exit:      false,
+			TodayNote: &todayNote,
 		}
+
+		zettelkasten.CreateTodayNote()
 
 		filePath := dir + "/" + formattetDate + ".md"
 
