@@ -22,7 +22,7 @@ const (
 var todayCmd = &cobra.Command{
 	Use:   "today",
 	Short: "Open today note",
-	Long:  `Open today note in nvim`,
+	Long:  `Open or create today note in nvim`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		todayPath := os.Getenv(TODAY_PATH)
@@ -30,7 +30,7 @@ var todayCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("Vault Path is not properly set")
 			cobra.CheckErr("Vault Path is not properly set")
-			return
+			os.Exit(1)
 		}
 
 		currentDate := time.Now()

@@ -12,9 +12,8 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "note-cli",
-	Short: "A note cli utility to generate and handling notes without leaving the terminal",
-	Long: `A cli utility for handling notes without leaving the terminal. Whether you want create new note, 
-	append something to an existing note, append something to today note, open specific note`,
+	Short: "A CLI utility for generating and managing notes without leaving the terminal",
+	Long:  `A CLI utility for managing notes without leaving the terminal. Whether you want to create a new note, append to an existing one, add something to today’s note, or open a specific note, this tool has you covered.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -38,5 +37,6 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
+	rootCmd.AddCommand(versionCmd)
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

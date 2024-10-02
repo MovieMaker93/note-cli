@@ -46,7 +46,7 @@ const (
 // createCmd represents the create command
 var newCmd = &cobra.Command{
 	Use:   "new",
-	Short: "Create new Inbox Note",
+	Short: "Create new Note",
 	Long:  `Crate new note with a specific title, content, type in Inbox Folder`,
 	Run: func(cmd *cobra.Command, args []string) {
 
@@ -116,7 +116,7 @@ var newCmd = &cobra.Command{
 
 		if zettelNote.Type == "" {
 			tprogram := tea.NewProgram(
-				textinput.InitialTextInputModel(options.Type, "Allowed values: consume or refine", zettelkasten),
+				textinput.InitialTextInputModel(options.Type, "Allowed values: consume, refine", zettelkasten),
 			)
 			if _, err := tprogram.Run(); err != nil {
 				log.Printf("Type contains an error: %v", err)
@@ -142,8 +142,8 @@ var newCmd = &cobra.Command{
 		case "consume":
 			zettelkasten.CreateConsumeNote()
 		default:
-			fmt.Println("No correct values selected for type. Allowed values: refine or consume")
-			return
+			fmt.Println("No correct values selected for type. Allowed values: refine or consume.")
+			os.Exit(1)
 		}
 
 		if err != nil {
@@ -174,5 +174,5 @@ func init() {
 
 	newCmd.Flags().StringP("title", "t", "", "Title of the note to create")
 	newCmd.Flags().StringP("content", "c", "", "Content of the note")
-	newCmd.Flags().String("type", "", "Kind of note to create. Allowed values: consume or refine")
+	newCmd.Flags().String("type", "", "Type of note to create. Allowed values: consume or refine.")
 }
