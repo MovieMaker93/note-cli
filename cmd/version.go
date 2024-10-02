@@ -56,6 +56,6 @@ var versionCmd = &cobra.Command{
 Use this command to check the current version of the application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		version := getNoteCliVersion()
-		fmt.Printf(" Note CLI version %v\n", NoteCliVersion)
+		fmt.Printf(" Note CLI version %v\n", version)
 	},
 }
