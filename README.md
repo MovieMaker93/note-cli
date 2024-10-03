@@ -28,8 +28,8 @@ Whether you’re using Nvim or Obsidian, this utility helps you create notes on 
 <h2>
   <picture>
     <img src="./public/download.png" width="60px" style="margin-right: 1px;">
- Install
   </picture>
+   Install
 </h2>
 
 ### Requirements
