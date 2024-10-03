@@ -34,6 +34,7 @@ Whether youâ€™re using Nvim or Obsidian, this utility helps you create notes on 
 - [Install](#install)
 - [Environment Configuration](#environment-configuration)
 - [Commands and Usage Example](#commands)
+- [How to Customize note templates](#template)
 
 <a id="install"></a>
 <h2>
@@ -88,7 +89,7 @@ You can set up your Vault path, Daily Note directory, New Note default directory
 - `DAILY_PATH`: Defines the directory where you store your daily notes in Obsidian
 - `NEW_NOTE_PATH`: Defines the directory for your new notes in Obsidian (consume or refine)
 - `VAULT`: Defines the absolute path to your Obsidian Vault
-- `DATE_FORMAT`: Set your preferred date format. For standard UTC Europe, use `02-01-2006`; for the US format use `2006-01-02`.
+- `DATE_FORMAT`: Set your preferred date format. For `gg/mm/dd` format, use `02-01-2006`; for the US format use `2006-01-02`.
 
 <a id="commands"></a>
 <h2>
@@ -124,3 +125,19 @@ Another useful command is `today`, which allows you to open the existing todayâ€
 ```bash
 note-cli today
 ```
+
+
+<a id="template"></a>
+<h2>
+  <picture>
+    <img src="./public/note.png" width="60px" style="margin-right: 1px;">
+  </picture>
+  How to Customize Note templates
+</h2>
+
+The creation of both the Today and New notes is based on custom templates. You can find them inside: `cmd/template/note/files`
+
+These templates are built using Go's `tmpl` package. If you wish to customize them, simply modify the following files:
+- `cmd/template/note/file/consume.tmpl` --> for **consume** note
+- `cmd/template/note/file/refine.tmpl` --> for **refine** note
+- `cmd/template/note/file/today.tmpl` --> for **today** note
