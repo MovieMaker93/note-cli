@@ -7,6 +7,17 @@
     <h1 align="center">Note cli</h1>
   </a>
 </p>
+<p align="center">
+  <a href="https://github.com/MovieMaker93/note-cli/commit">
+    <img alt="LastCommit" src="https://img.shields.io/github/last-commit/MovieMaker93/note-cli/main?style=for-the-badge&logo=github&color=%237dcfff">
+  </a>
+  <a href="https://github.com/MovieMaker93/devpod-dotfiles-chezmoi/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/MovieMaker93/devpod-dotfiles-chezmoi?style=for-the-badge&logo=github">
+  </a>
+  <!-- <a href="https://github.com/MovieMaker93/devpod-dotfiles-chezmoi/stars"> -->
+  <!--   <img alt="stars" src="https://img.shields.io/github/stars/MovieMaker93/devpod-dotfiles-chezmoi?style=for-the-badge&logo=github&color=%23f7768e"> -->
+  <!-- </a> -->
+</p>
 <div style="text-align: center;">
   <h1>
     Introducing Note Cli 
@@ -44,7 +55,7 @@ go install github.com/MovieMaker93/note-cli@latest
 
 This installs a go binary that will automatically bind to your $GOPATH
 
-## Building and Installing from Source
+### Building and Installing from Source
 
 Clone the Note-Cli repository from GitHub:
 ```bash
