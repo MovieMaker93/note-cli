@@ -16,21 +16,22 @@
 Note CLI is a tool that allows users to create or open notes without ever leaving the terminal. If you're someone like me who lives in the terminal and is obsessed with note-taking, this might be the perfect tool for you.
 
 Whether you’re using Nvim or Obsidian, this utility helps you create notes on the fly without losing focus losing focus.
+![Refine](./public/refine.gif) 
 
 ## Table of Contents
 
 - [Install](#install)
 - [Environment Configuration](#environment-configuration)
-- [Commands](#commands)
-- [Usage Example](#usage-example)
+- [Commands and Usage Example](#commands)
 
 <a id="install"></a>
 <h2>
   <picture>
-    <img src="./public/install.gif?raw=true" width="60px" style="margin-right: 1px;">
+    <img src="./public/download.png" width="60px" style="margin-right: 1px;">
+ Install
   </picture>
-  Install
 </h2>
+
 
 ## Binary Installation
 ```bash
@@ -61,38 +62,50 @@ note-cli version
 <a id="environment-configuration"></a>
 <h2>
   <picture>
-    <img src="./public/install.gif?raw=true" width="60px" style="margin-right: 1px;">
+    <img src="./public/conf.png" width="60px" style="margin-right: 1px;">
   </picture>
   Environment Configuration
 </h2>
 
-You can set up your own Vault path, Daily note directory, New note defualt directory and date format via `Environment variables`.
-You can find a full example inside `.env` file. 
+You can set up your Vault path, Daily Note directory, New Note default directory, and date format via environment variables. A full example can be found in the `.env` file.
 
-A brief description:
-- `DAILY_PATH`: Define your directory where you put your daily note in Obsidian
-- `NEW_NOTE_PATH`: Define your directory where you put your new note in Obsidian (consume or refine)
-- `VAULT`: Define your absolute Obsidian Vault path
-- `DATE_FORMAT`: Define your date format. `02-01-2006` for the standard UTC Europe, for US `2006-01-02`.
+**Brief description:** 
+- `DAILY_PATH`: Defines the directory where you store your daily notes in Obsidian
+- `NEW_NOTE_PATH`: Defines the directory for your new notes in Obsidian (consume or refine)
+- `VAULT`: Defines the absolute path to your Obsidian Vault
+- `DATE_FORMAT`: Set your preferred date format. For standard UTC Europe, use `02-01-2006`; for the US format use `2006-01-02`.
 
 <a id="commands"></a>
 <h2>
   <picture>
-    <img src="./public/install.gif?raw=true" width="60px" style="margin-right: 1px;">
+    <img src="./public/line.png" width="60px" style="margin-right: 1px;">
   </picture>
   Commands
 </h2>
 
+You can either create a new note (of type `refine` or `consume`) or open/create today’s note. 
+
+When creating a new note, you have two options:
+- Interact with the UI 
+- Use an imperative command
+
+Both methods allow you to create a note with a title, content, and type. The available note types are `consume` and `refine`.
+
+### Example
+![Example refine note](./public/refine.gif)
+
+> [!NOTE]
+> For consume notes, a link to the new note will be automatically created in your Today note.
 
 
-
-You can also use the provided flags to set up a project without interacting with the UI.
-
+For the second option, you can use the provided flags to create a refine note without interacting with the UI:
 ```bash
-go-blueprint create --name my-project --framework gin --driver postgres --git commit
+note-cli new -t example-consume -c example-content --type consume
 ```
-
-See `go-blueprint create -h` for all the options and shorthands.
-
+See `note-cli new -h` for all the options and shorthands.
 
 
+Another useful command is `today`, which allows you to open the existing today’s note or create one if it’s missing:
+```bash
+note-cli today
+```
