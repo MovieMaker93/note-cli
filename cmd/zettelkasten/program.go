@@ -9,6 +9,7 @@ import (
 	"github.com/MovieMaker93/note-cli/cmd/template/note"
 	"github.com/MovieMaker93/note-cli/cmd/utils"
 	tea "github.com/charmbracelet/bubbletea"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/spf13/cobra"
 )
 

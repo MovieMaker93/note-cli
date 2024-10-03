@@ -34,9 +34,9 @@ var todayCmd = &cobra.Command{
 		}
 
 		currentDate := time.Now()
-		tomorrowDate := currentDate.AddDate(0, 0, 1).Format("02-01-2006")
-		yesterdayDate := currentDate.AddDate(0, 0, -1).Format("02-01-2006")
-		formattetDate := currentDate.Format("02-01-2006")
+		tomorrowDate := utils.GetFormattedDate(currentDate.AddDate(0, 0, 1))
+		yesterdayDate := utils.GetFormattedDate(currentDate.AddDate(0, 0, -1))
+		formattetDate := utils.GetFormattedDate(currentDate)
 
 		todayNote := zet.TodayNote{
 			CurrentDate: formattetDate,

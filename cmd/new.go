@@ -46,8 +46,8 @@ const (
 // createCmd represents the create command
 var newCmd = &cobra.Command{
 	Use:   "new",
-	Short: "Create new Note",
-	Long:  `Crate new note with a specific title, content, type in Inbox Folder`,
+	Short: "Create new Note (refine or consume)",
+	Long:  `Crate new Note with a specific title, content, type in Inbox Folder`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		flagTitle := cmd.Flag("title").Value.String()
@@ -63,7 +63,6 @@ var newCmd = &cobra.Command{
 		}
 
 		fmt.Printf("%s\n", logoStyle.Render(logo))
-		currentDate := time.Now()
 
 		options := Options{
 			Title:   &textinput.Output{},
@@ -131,7 +130,7 @@ var newCmd = &cobra.Command{
 
 		}
 
-		formattetDate := currentDate.Format("02-01-2006")
+		formattetDate := utils.GetFormattedDate(time.Now())
 		zettelNote.CurrentDate = formattetDate
 		title := strings.TrimSpace(zettelNote.Title)
 		zettelkasten.ZettelNote = &zettelNote

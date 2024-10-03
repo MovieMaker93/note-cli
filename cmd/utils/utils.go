@@ -3,6 +3,7 @@ package utils
 import (
 	"os"
 	"os/exec"
+	"time"
 
 	_ "github.com/joho/godotenv/autoload"
 
@@ -12,6 +13,10 @@ import (
 const (
 	VAULT       string = "VAULT"
 	ERROR_VAULT string = "Vault Obsidian Path env need to be set up"
+)
+
+var (
+	DATE_FORMAT string = os.Getenv("DATE_FORMAT")
 )
 
 func GoToVaultDirectory(relativePath string) (string, error) {
@@ -55,4 +60,8 @@ func OpenAndWriteToFile(fileName string, contentOfFile string) error {
 		return error
 	}
 	return nil
+}
+
+func GetFormattedDate(date time.Time) string {
+	return date.Format(DATE_FORMAT)
 }

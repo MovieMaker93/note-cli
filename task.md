@@ -1,7 +1,6 @@
 Task todo:
-- Create daily note content
-- Create consume note
-- Create utility package with this three methods:
-    - Open_or_create_note
-    - Open or_create_today
-    - Go_to_vault_dir
+- Complete README 
+    - Commands either interactive or imperative
+    - Gif with interactive
+    - Image with imperative command and interactive
+- Add date format env variable inside the code 
